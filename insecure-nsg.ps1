@@ -50,7 +50,7 @@ foreach ($nsg in $nsgs) {
                 PortRange = $rule.DestinationPortRange
                 SourceAddress = $source
                 DestinationAddress = $rule.DestinationAddressPrefix
-                BestPractices = 'https://learn.microsoft.com/en-us/azure/virtual-network/network-security-best-practices'
+                BestPractices = 'https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview'
             }
             $results += $result
         }
