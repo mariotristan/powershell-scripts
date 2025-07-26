@@ -38,28 +38,28 @@ foreach ($nsg in $nsgs) {
         $direction = $rule.Direction
         $access = $rule.Access
 
-        # Check if rule allows inbound traffic from Internet
+        # Determine if rule is insecure
         if ($direction -eq "Inbound" -and $access -eq "Allow" -and ($source -eq "*" -or $source -eq "Internet")) {
-            $result = [PSCustomObject]@{
-                Insecure = '❌'
-                NSGName = $nsg.Name
-                Location = $nsg.Location
-                RuleName = $rule.Name
-                Priority = $rule.Priority
-                Protocol = $rule.Protocol
-                PortRange = $rule.DestinationPortRange
-                SourceAddress = $source
-                DestinationAddress = $rule.DestinationAddressPrefix
-                BestPractices = 'https://learn.microsoft.com/en-us/azure/virtual-network/network-security-best-practices'
-            }
-            $results += $result
+            $isSecure = '❌'
+        } else {
+            $isSecure = '✅'
         }
+
+        $result = [PSCustomObject]@{
+            IsSecure = $isSecure
+            NSGName = $nsg.Name
+            Location = $nsg.Location
+            RuleName = $rule.Name
+            Priority = $rule.Priority
+            Protocol = $rule.Protocol
+            PortRange = $rule.DestinationPortRange
+            SourceAddress = $source
+            DestinationAddress = $rule.DestinationAddressPrefix
+            BestPractices = 'https://learn.microsoft.com/en-us/azure/virtual-network/network-security-best-practices'
+        }
+        $results += $result
     }
 }
 
-# Output results as a table if any found
-if ($results) {
-    $results | Format-Table -AutoSize
-} else {
-    Write-Host "No inbound rules allowing traffic from Internet found."
-}
+# Output all rules as a table
+$results | Format-Table -AutoSize
