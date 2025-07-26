@@ -24,5 +24,5 @@ This repository contains PowerShell scripts for Azure resource management. The m
 - If no insecure rules are found, a message is displayed.
 
 **Reference:**
-- [Azure Network Security Best Practices](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-best-practices)
+- [Azure Network Security Best Practices](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview)
 # powershell-scripts
